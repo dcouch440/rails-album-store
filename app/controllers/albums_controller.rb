@@ -1,5 +1,6 @@
 class AlbumsController < ApplicationController
 
+
   def index
     @albums = Album.all
     render :index
@@ -29,12 +30,13 @@ class AlbumsController < ApplicationController
     render :show
   end
 
-  def update
-    @album= Album.find(params[:id])
-    if @album.update(album_params)
+  def create
+    @album = Album.new(album_params)
+    if @album.save
+      flash[:notice] = "Album successfully added!"
       redirect_to albums_path
     else
-      render :edit
+      render :new
     end
   end
 
